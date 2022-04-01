@@ -1,0 +1,206 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --softred: hsl(345, 95%, 68%);
+  --blue-100: hsl(237, 18%, 59%);
+  --blue-200: hsl(236, 21%, 26%);
+  --blue-300: hsl(235, 16%, 14%);
+  --blue-400: hsl(234, 17%, 12%);
+}
+
+body {
+  font-family: 'Red Hat Text', sans-serif;
+  min-height: 100vh;
+  background-color: var(--blue-300);
+  color: white;
+  text-align: center;
+  margin: 0;
+  background-image: url(../images/bg-stars.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.container {
+  padding: 8rem 0 0;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 7px;
+  line-height: 1.9;
+}
+
+.timers {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.timer {
+  margin: 0.8rem;
+}
+
+.timer-countdown {
+  --border-radius: 10px;
+  --timer-height: 90px;
+  --timer-width: calc(var(--timer-height) * 1.05);
+  width: var(--timer-width);
+  height: var(--timer-height);
+  position: relative;
+}
+
+.timer-countdown-display {
+  height: 100%;
+}
+
+.timer-countdown .top:before, .timer-countdown .top:after,
+.timer-countdown .bottom:before, .timer-countdown .bottom:after {
+  --border-radius: 5px;
+  content: '';
+  position: absolute;
+  --size: calc(var(--timer-height) / 18);
+  width: var(--size);
+  height: var(--size);
+  background: var(--blue-400);
+}
+
+.timer-countdown .top:before {
+  border-top-right-radius: var(--border-radius);
+  bottom: 0;
+  left: 0;
+}
+
+.timer-countdown .top:after {
+  border-top-left-radius: var(--border-radius);
+  bottom: 0;
+  right: 0;
+}
+
+.timer-countdown .bottom:before {
+  border-bottom-right-radius: var(--border-radius);
+  top: 0;
+  left: 0;
+}
+
+.timer-countdown .bottom:after {
+  border-bottom-left-radius: var(--border-radius);
+  top: 0;
+  right: 0;
+}
+
+.timer-countdown .top,
+.timer-countdown .bottom {
+  height: 50%;
+  line-height: calc(var(--timer-height) / 2 * var(--i));
+  font-size: calc(var(--timer-height) / 2);
+  overflow: hidden;
+  color: var(--softred);
+  position: relative;
+}
+
+.timer-countdown .top {
+  --i: 2;
+  background: #232336;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.timer-countdown .bottom {
+  --i: -2;
+  background: #2a2b3f;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.timer-countdown-display .bottom {
+  box-shadow: 0 8px 0 var(--blue-400);
+}
+
+.timer-countdown-flipper {
+  position: absolute;
+  inset: 0;
+  perspective: 300px;
+}
+
+.timer-countdown-flipper .top {
+  transform-origin: bottom;
+  transform: rotateX(-0deg);
+}
+
+.timer-countdown-flipper .bottom {
+  transform-origin: top;
+  transform: rotateX(90deg);
+}
+
+.timer-countdown.flip .timer-countdown-flipper .top {
+  animation: animateFlipperTop 0.5s linear;
+}
+
+.timer-countdown.flip .timer-countdown-flipper .bottom {
+  animation: animateFlipperBottom 0.5s linear;
+}
+
+@keyframes animateFlipperTop {
+  0% {
+    transform: rotateX(-0deg);
+  }
+  50%,
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes animateFlipperBottom {
+  0%,
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+.timer-label {
+  color: var(--blue-100);
+  font-size: 12px;
+  margin-top: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 4rem 0;
+  background-image: url(../images/pattern-hills.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.social:hover path {
+  fill: var(--softred);
+}
+
+.social + .social {
+  margin-left: 2rem;
+}
+
+@media screen and (max-width: 500px) {
+  .title {
+    font-size: 1rem;
+  }
+
+  .timer-countdown {
+    --timer-height: 15vw;
+  }
+
+  .timer-label {
+    font-size: 8px;
+  }
+}
